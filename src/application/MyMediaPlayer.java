@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -13,9 +15,18 @@ import javafx.stage.Stage;
 
 public class MyMediaPlayer extends Application {
 
-	private static final String MEDIA_URL =
-			 "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv";
 	
+	private String path =
+			 "D:/Downloads/a.mp4";
+	private File filePlay = new File(path);
+	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Embedded Media Player");
@@ -23,7 +34,7 @@ public class MyMediaPlayer extends Application {
        
         Scene scene = new Scene(root, 860, 640);
 
-        Media media = new Media(MEDIA_URL);
+        Media media = new Media(filePlay.toURI().toURL().toString());
       MediaPlayer mediaPlayer = new MediaPlayer(media);
        
         mediaPlayer.setAutoPlay(true);

@@ -3,6 +3,7 @@ package application;
 import java.awt.CheckboxMenuItem;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -54,7 +55,22 @@ public class MyMenu extends MenuBar{
 		menuHelp.getItems().add(menuAbout);
 		
 		this.getMenus().addAll(menuFile, menuView, menuHelp);
+		//Open action
+		menuOpen.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				
+				
+			}
+		});
 		
+		//Exit action
+		menuExit.setOnAction(new EventHandler<ActionEvent>() {
+		      public void handle(ActionEvent e) {
+		        Platform.exit();
+		      }
+		    });
+		//About action
 		menuAbout.setOnAction(new EventHandler<ActionEvent>() {
 		     public void handle(ActionEvent e) {
 		    	StageHelp helpStage = new StageHelp();
