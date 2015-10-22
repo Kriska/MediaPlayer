@@ -14,5 +14,5 @@ public class MyMenu extends MenuBar{
 		menuHelp = new Menu("Help");
 		this.getMenus().addAll(menuFile, menuView, menuHelp);
 	}
-
+	
 }
