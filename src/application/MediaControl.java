@@ -1,8 +1,6 @@
 package application;
 
 
-import com.sun.prism.paint.Color;
-
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -40,23 +38,9 @@ public class MediaControl extends BorderPane {
 	private Slider volumeSlider;
 	private HBox mediaBar;
 	private boolean isFullScreen;
+	
 
-	public boolean isFullScreen() {
-		return isFullScreen;
-	}
-
-	public void setFullScreen(boolean isFullScreen) {
-		this.isFullScreen = isFullScreen;
-	}
-
-	public MediaView getMediaView() {
-		return mediaView;
-	}
-
-	public void setMediaView(MediaView mediaView) {
-		this.mediaView = mediaView;
-	}
-
+	
 	@Override
 	protected void layoutChildren() {
 
@@ -311,4 +295,21 @@ public class MediaControl extends BorderPane {
 			}
 		}
 	}
+
+	public MediaView getMediaView() {
+		return mediaView;
+	}
+
+	public void setMediaView(MediaView mediaView) {
+		this.mediaView = mediaView;
+	}
+
+	public boolean isFullScreen() {
+		return isFullScreen;
+	}
+
+	public void setFullScreen(boolean isFullScreen) {
+		this.isFullScreen = isFullScreen;
+	}
+
 }

@@ -1,7 +1,5 @@
 package application;
 
-import java.io.File;
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -41,8 +39,6 @@ public class MyMediaPlayer extends Application {
        
         scene.setRoot(border);
         primaryStage.setScene(scene);
-     
-        
         
         //fullScreen EventHandler
         mediaControl.getMediaView().setOnMouseClicked(new EventHandler<MouseEvent>() {
