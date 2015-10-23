@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
@@ -39,6 +40,9 @@ public class MediaControl extends BorderPane {
 	private HBox mediaBar;
 	private boolean isFullScreen;
 	
+	public void setNewFile(MediaPlayer mediaPlayer) {
+		this.mp = mediaPlayer;	
+	}
 
 	
 	@Override
@@ -85,9 +89,8 @@ public class MediaControl extends BorderPane {
 		return Double.MAX_VALUE;
 	}
 
-	public MediaControl(final MediaPlayer mp) {
+	public MediaControl( MediaPlayer mp) {
 		this.mp = mp;
-		setId("mediaControl");
 
 		mediaView = new MediaView(mp);
 		Pane mvPane = new Pane();

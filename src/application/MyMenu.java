@@ -1,27 +1,15 @@
 package application;
 
-import java.awt.CheckboxMenuItem;
-
-import javafx.application.Application;
+import java.io.File;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.media.MediaPlayer.Status;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
 
 public class MyMenu extends MenuBar{
 	
@@ -35,6 +23,111 @@ public class MyMenu extends MenuBar{
 	
 	private MenuItem menuFont;
 	private MenuItem menuAbout;
+	private File fileToPlay;
+	private FileChooser fileChooser;
+	
+	
+	
+	public FileChooser getFileChooser() {
+		return fileChooser;
+	}
+
+
+	public void setFileChooser(FileChooser fileChooser) {
+		this.fileChooser = fileChooser;
+	}
+
+
+	public File getFileToPlay() {
+		return fileToPlay;
+	}
+
+
+	public void setFileToPlay(File fileToPlay) {
+		this.fileToPlay = fileToPlay;
+	}
+
+
+	public Menu getMenuFile() {
+		return menuFile;
+	}
+
+
+	public void setMenuFile(Menu menuFile) {
+		this.menuFile = menuFile;
+	}
+
+
+	public Menu getMenuView() {
+		return menuView;
+	}
+
+
+	public void setMenuView(Menu menuView) {
+		this.menuView = menuView;
+	}
+
+
+	public Menu getMenuHelp() {
+		return menuHelp;
+	}
+
+
+	public void setMenuHelp(Menu menuHelp) {
+		this.menuHelp = menuHelp;
+	}
+
+
+	public MenuItem getMenuOpen() {
+		return menuOpen;
+	}
+
+
+	public void setMenuOpen(MenuItem menuOpen) {
+		this.menuOpen = menuOpen;
+	}
+
+
+	public MenuItem getMenuSubtitles() {
+		return menuSubtitles;
+	}
+
+
+	public void setMenuSubtitles(MenuItem menuSubtitles) {
+		this.menuSubtitles = menuSubtitles;
+	}
+
+
+	public MenuItem getMenuExit() {
+		return menuExit;
+	}
+
+
+	public void setMenuExit(MenuItem menuExit) {
+		this.menuExit = menuExit;
+	}
+
+
+	public MenuItem getMenuFont() {
+		return menuFont;
+	}
+
+
+	public void setMenuFont(MenuItem menuFont) {
+		this.menuFont = menuFont;
+	}
+
+
+	public MenuItem getMenuAbout() {
+		return menuAbout;
+	}
+
+
+	public void setMenuAbout(MenuItem menuAbout) {
+		this.menuAbout = menuAbout;
+	}
+
+
 	MyMenu() {
 		menuFile = new Menu("File");
 		menuView = new Menu("View");
@@ -46,6 +139,8 @@ public class MyMenu extends MenuBar{
 		
 		menuFont = new MenuItem("Font");
 		menuAbout = new MenuItem("About");
+		 
+		fileToPlay= new File("start.png");
 		
 		
 		menuFile.getItems().addAll(menuOpen,
@@ -59,8 +154,11 @@ public class MyMenu extends MenuBar{
 		menuOpen.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
-				
+				 fileChooser = new FileChooser();
+			     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Media files (*.mp3)", "*.mp4");
+			     fileChooser.getExtensionFilters().add(extFilter);
+			     setFileToPlay(fileChooser.showOpenDialog(null));
+			    MyMediaPlayer myMediaPlayer = new MyMediaPlayer(getFileToPlay());
 			}
 		});
 		
@@ -77,5 +175,4 @@ public class MyMenu extends MenuBar{
 		     }
 		});
 	}
-	
 }

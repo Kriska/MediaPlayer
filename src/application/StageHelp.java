@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class StageHelp extends Stage {
 
 	StageHelp() {
-		setTitle("JavaFX Welcome");
+		setTitle("About");
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
