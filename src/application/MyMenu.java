@@ -27,6 +27,7 @@ public class MyMenu extends MenuBar{
 	private File subtitlesToPlay;
 	private FileChooser fileChooser;
 	
+	private MyMediaPlayer myMedia;
 	public File getSubtitlesToPlay() {
 		return subtitlesToPlay;
 	}
@@ -148,7 +149,8 @@ public class MyMenu extends MenuBar{
 		menuAbout = new MenuItem("About");
 		 
 		fileToPlay= new File("start.png");
-		
+
+	      myMedia = new MyMediaPlayer(); 
 		
 		menuFile.getItems().addAll(menuOpen,
 		        new SeparatorMenuItem(), menuExit);
@@ -161,10 +163,14 @@ public class MyMenu extends MenuBar{
 			@Override
 			public void handle(ActionEvent e) {
 				 fileChooser = new FileChooser();
-			     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Media files (*.mp3)", "*.mp4");
+			     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Media files (*.mp4)","*.mp3", "*.mp4");
 			     fileChooser.getExtensionFilters().add(extFilter);
-			     setFileToPlay(fileChooser.showOpenDialog(parsedStage));
-			    MyMediaPlayer myMediaPlayer = new MyMediaPlayer(getFileToPlay(),parsedStage);
+			     File f = fileChooser.showOpenDialog(parsedStage);
+			     if (f != null) {
+			    	 setFileToPlay(f);
+			    	 myMedia.set(fileToPlay, parsedStage);
+			    } else {
+			    }
 			}
 		});
 		 //LoadSubtitles action
@@ -172,11 +178,7 @@ public class MyMenu extends MenuBar{
 
 			@Override
 			public void handle(ActionEvent event) {
-				fileChooser = new FileChooser();
-			     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Media files (*.sub)", "*.str");
-			     fileChooser.getExtensionFilters().add(extFilter);
-			     setFileToPlay(fileChooser.showOpenDialog(parsedStage));
-			    MyMediaPlayer myMediaPlayer = new MyMediaPlayer(getFileToPlay(),parsedStage);
+			
 			}
 			
 		});
@@ -194,8 +196,13 @@ public class MyMenu extends MenuBar{
 		     }
 		});
 	}
+	
 	public void isSubtitlesDisable(File fileInStage) {
-		 if (fileInStage.getName().equals("start.png")) menuSubtitles.setDisable(true);
-		else menuSubtitles.setDisable(false);
+		 if (fileInStage.getName().equals("start.png")) {
+			 menuSubtitles.setDisable(true);
+		 }
+		else { 
+			menuSubtitles.setDisable(false);
+		}
 	}
 }

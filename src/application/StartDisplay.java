@@ -15,7 +15,7 @@ public class StartDisplay extends Application {
 
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
-		primaryStage.setTitle("Embedded Media Player");
+		primaryStage.setTitle("Kriska's Media Player");
 		primaryStage.setResizable(false);
        // Group root = new Group();
         BorderPane grid = new BorderPane();
@@ -31,9 +31,9 @@ public class StartDisplay extends Application {
 		grid.setTop(menu);
 		grid.setCenter(sceneTitle);
 		grid.setBottom(imageView);
-		
+
 		menu.isSubtitlesDisable(menu.getFileToPlay());
-		
+
         primaryStage.setScene(scene);
         primaryStage.show();
 	}

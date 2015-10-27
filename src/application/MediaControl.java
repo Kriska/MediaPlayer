@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
@@ -38,6 +39,7 @@ public class MediaControl extends BorderPane {
 	private Slider volumeSlider;
 	private HBox mediaBar;
 	private boolean isFullScreen;
+	private Subtitles subText;
 	
 	public void setNewFile(MediaPlayer mediaPlayer) {
 		this.mp = mediaPlayer;	
@@ -93,7 +95,16 @@ public class MediaControl extends BorderPane {
 		Pane mvPane = new Pane();
 		mvPane.getChildren().add(mediaView);
 		mvPane.setStyle("-fx-background-color: black;");
-		mvPane.setId("mediaViewPane");
+		
+		//pane for the subtitles
+	    StackPane stack = new StackPane();
+	    subText = new Subtitles("SubtitleSSS..");
+
+	     // t.textProperty().addChangeListener(..);
+     stack.getChildren().addAll(mediaView, subText);
+      StackPane.setAlignment(subText, Pos.BOTTOM_CENTER);
+      mvPane.getChildren().add(stack);
+		
 		setCenter(mvPane);
 
 		mediaBar = new HBox();
