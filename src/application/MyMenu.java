@@ -8,8 +8,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class MyMenu extends MenuBar{
 	
@@ -24,10 +24,17 @@ public class MyMenu extends MenuBar{
 	private MenuItem menuFont;
 	private MenuItem menuAbout;
 	private File fileToPlay;
+	private File subtitlesToPlay;
 	private FileChooser fileChooser;
 	
-	
-	
+	public File getSubtitlesToPlay() {
+		return subtitlesToPlay;
+	}
+
+
+	public void setSubtitlesToPlay(File subtitlesToPlay) {
+		this.subtitlesToPlay = subtitlesToPlay;
+	}
 	public FileChooser getFileChooser() {
 		return fileChooser;
 	}
@@ -128,7 +135,7 @@ public class MyMenu extends MenuBar{
 	}
 
 
-	MyMenu() {
+	MyMenu(Stage parsedStage) {
 		menuFile = new Menu("File");
 		menuView = new Menu("View");
 		menuHelp = new Menu("Help");
@@ -145,7 +152,6 @@ public class MyMenu extends MenuBar{
 		
 		menuFile.getItems().addAll(menuOpen,
 		        new SeparatorMenuItem(), menuExit);
-		
 		menuView.getItems().addAll(menuSubtitles,menuFont);
 		menuHelp.getItems().add(menuAbout);
 		
@@ -157,9 +163,22 @@ public class MyMenu extends MenuBar{
 				 fileChooser = new FileChooser();
 			     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Media files (*.mp3)", "*.mp4");
 			     fileChooser.getExtensionFilters().add(extFilter);
-			     setFileToPlay(fileChooser.showOpenDialog(null));
-			    MyMediaPlayer myMediaPlayer = new MyMediaPlayer(getFileToPlay());
+			     setFileToPlay(fileChooser.showOpenDialog(parsedStage));
+			    MyMediaPlayer myMediaPlayer = new MyMediaPlayer(getFileToPlay(),parsedStage);
 			}
+		});
+		 //LoadSubtitles action
+		menuView.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				fileChooser = new FileChooser();
+			     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Media files (*.sub)", "*.str");
+			     fileChooser.getExtensionFilters().add(extFilter);
+			     setFileToPlay(fileChooser.showOpenDialog(parsedStage));
+			    MyMediaPlayer myMediaPlayer = new MyMediaPlayer(getFileToPlay(),parsedStage);
+			}
+			
 		});
 		
 		//Exit action
@@ -171,8 +190,12 @@ public class MyMenu extends MenuBar{
 		//About action
 		menuAbout.setOnAction(new EventHandler<ActionEvent>() {
 		     public void handle(ActionEvent e) {
-		    	StageHelp helpStage = new StageHelp();
+		    	new StageHelp();
 		     }
 		});
+	}
+	public void isSubtitlesDisable(File fileInStage) {
+		 if (fileInStage.getName().equals("start.png")) menuSubtitles.setDisable(true);
+		else menuSubtitles.setDisable(false);
 	}
 }

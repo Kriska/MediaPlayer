@@ -20,7 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
@@ -42,9 +41,7 @@ public class MediaControl extends BorderPane {
 	
 	public void setNewFile(MediaPlayer mediaPlayer) {
 		this.mp = mediaPlayer;	
-	}
-
-	
+	}	
 	@Override
 	protected void layoutChildren() {
 

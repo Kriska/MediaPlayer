@@ -2,11 +2,8 @@ package application;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
@@ -16,24 +13,19 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class MyMediaPlayer extends Stage implements Initializable{
-
-	Stage prevStage;
-
-    public void setPrevStage(Stage stage){
-         this.prevStage = stage;
-    }
+public class MyMediaPlayer {
 	
-	MyMediaPlayer(File fileToPlay) {
-		setTitle(fileToPlay.getName());
+	MyMediaPlayer(File fileToPlay, Stage parsedStage) {
+		
+		parsedStage.setTitle(fileToPlay.getName());
         Group root = new Group();
        
         Scene scene = new Scene(root, 860, 640);
         BorderPane border = new BorderPane();
-        MyMenu myMenu = new MyMenu();
+        MyMenu myMenu = new MyMenu(parsedStage);
         border.setTop(myMenu);
        scene.setRoot(border);
-        setScene(scene);
+      parsedStage.setScene(scene);
 		try {
 			Media media = new Media(fileToPlay.toURI().toURL().toString());
 			 MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -48,14 +40,14 @@ public class MyMediaPlayer extends Stage implements Initializable{
 						if(e.getButton().equals(MouseButton.PRIMARY)){
 						
 				            if(e.getClickCount() == 2) {
-				            	if(!(mediaControl.isFullScreen())) { //
+				            	if(!(mediaControl.isFullScreen())) { 
 				            		mediaControl.setFullScreen(true);
-				            		setFullScreen(mediaControl.isFullScreen());
+				            		parsedStage.setFullScreen(mediaControl.isFullScreen());
 				            		border.setTop(null);
 				            	}
 				            	else {
 				            		mediaControl.setFullScreen(false);
-				                    setFullScreen(mediaControl.isFullScreen());
+				                    parsedStage.setFullScreen(mediaControl.isFullScreen());
 				                    border.setTop(myMenu);
 				            	}
 				            }
@@ -66,16 +58,5 @@ public class MyMediaPlayer extends Stage implements Initializable{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        show();
 	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-		
 }
