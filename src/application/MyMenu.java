@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -10,6 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MyMenu extends MenuBar{
 	
@@ -28,6 +30,7 @@ public class MyMenu extends MenuBar{
 	private FileChooser fileChooser;
 	
 	private MyMediaPlayer myMedia;
+	
 	public File getSubtitlesToPlay() {
 		return subtitlesToPlay;
 	}
@@ -167,8 +170,9 @@ public class MyMenu extends MenuBar{
 			     fileChooser.getExtensionFilters().add(extFilter);
 			     File f = fileChooser.showOpenDialog(parsedStage);
 			     if (f != null) {
-			    	 setFileToPlay(f);
+			    	 setFileToPlay(f); 
 			    	 myMedia.set(fileToPlay, parsedStage);
+
 			    } else {
 			    }
 			}
@@ -196,13 +200,7 @@ public class MyMenu extends MenuBar{
 		     }
 		});
 	}
-	
-	public void isSubtitlesDisable(File fileInStage) {
-		 if (fileInStage.getName().equals("start.png")) {
-			 menuSubtitles.setDisable(true);
-		 }
-		else { 
-			menuSubtitles.setDisable(false);
-		}
+	public MyMediaPlayer getMyMedia() {
+		return myMedia;
 	}
 }

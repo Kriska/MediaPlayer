@@ -2,8 +2,7 @@ package application;
 
 import java.io.File;
 import java.net.MalformedURLException;
-
-import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
+import java.util.ArrayList;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -23,8 +22,10 @@ public class MyMediaPlayer {
 	private MediaControl mediaControl;
 	private Media media;
 	private MediaPlayer mediaPlayer;
-	MyMediaPlayer () {
-		
+	
+	
+	public MediaControl getMediaControl() {
+		return mediaControl;
 	}
 	public void set(File fileToPlay, Stage parsedStage) {
 		
@@ -36,38 +37,41 @@ public class MyMediaPlayer {
         myMenu = new MyMenu(parsedStage);
         border.setTop(myMenu);
         scene.setRoot(border);
-        
+ 
     parsedStage.setScene(scene);
-		try {
-			Media media = new Media(fileToPlay.toURI().toURL().toString());
-			 MediaPlayer mediaPlayer = new MediaPlayer(media);
-		        mediaPlayer.setAutoPlay(true);
-		        mediaControl = new MediaControl(mediaPlayer);
-		        border.setCenter(mediaControl);
-		        
-		        //fullScreen EventHandler
-		        mediaControl.getMediaView().setOnMouseClicked(new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent e) {
-						if(e.getButton().equals(MouseButton.PRIMARY)){
-						
-				            if(e.getClickCount() == 2) {
-				            	if(!(mediaControl.isFullScreen())) { 
-				            		mediaControl.setFullScreen(true);
-				            		parsedStage.setFullScreen(mediaControl.isFullScreen());
-				            		border.setTop(null);
-				            	}
-				            	else {
-				            		mediaControl.setFullScreen(false);
-				                    parsedStage.setFullScreen(mediaControl.isFullScreen());
-				                    border.setTop(myMenu);
-				            	}
-				            }
-						}
+					Media media;
+					try {
+						media = new Media(fileToPlay.toURI().toURL().toString());
+						MediaPlayer mediaPlayer= new MediaPlayer(media);
+						mediaControl = new MediaControl(mediaPlayer);
+					} catch (MalformedURLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-		        });
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+				        border.setCenter(mediaControl);
+				        mediaControl.getMp().setAutoPlay(true);
+				        
+				        //fullScreen EventHandler
+				        mediaControl.getMediaView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent e) {
+								if(e.getButton().equals(MouseButton.PRIMARY)){
+								
+						            if(e.getClickCount() == 2) {
+						            	if(!(mediaControl.isFullScreen())) { 
+						            		mediaControl.setFullScreen(true);
+						            		parsedStage.setFullScreen(mediaControl.isFullScreen());
+						            		border.setTop(null);
+						            	}
+						            	else {
+						            		mediaControl.setFullScreen(false);
+						                    parsedStage.setFullScreen(mediaControl.isFullScreen());
+						                    border.setTop(myMenu);
+						            	}
+						            }
+								}
+							}
+				        });
 	}
+	
 }

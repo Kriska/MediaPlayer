@@ -40,10 +40,12 @@ public class MediaControl extends BorderPane {
 	private HBox mediaBar;
 	private boolean isFullScreen;
 	private Subtitles subText;
-	
-	public void setNewFile(MediaPlayer mediaPlayer) {
-		this.mp = mediaPlayer;	
-	}	
+
+
+	public MediaPlayer getMp() {
+		return mp;
+	}
+		
 	@Override
 	protected void layoutChildren() {
 
